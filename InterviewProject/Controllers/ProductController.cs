@@ -31,8 +31,76 @@ namespace InterviewProject.Controllers
             return View();
         }
 
-       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateProduct(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationDbContext.Products.Add(product);
+                ApplicationDbContext.SaveChanges();
+                return RedirectToAction("Product");
+            }
+            return View(product);
+        }
 
+        [HttpGet]
+        public IActionResult EditProduct(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
 
+            var product = ApplicationDbContext.Products.Find(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditProduct(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationDbContext.Products.Update(product);
+                ApplicationDbContext.SaveChanges();
+                return RedirectToAction("Product");
+            }
+            return View(product);
+        }
+
+        [HttpGet]
+        public IActionResult DeleteProduct(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var product = ApplicationDbContext.Products.Find(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteProductConfirmation(int? id)
+        {
+            var product = ApplicationDbContext.Products.Find(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            ApplicationDbContext.Products.Remove(product);
+            ApplicationDbContext.SaveChanges();
+            return RedirectToAction("Product");
+        }
     }
 }
