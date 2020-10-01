@@ -14,6 +14,7 @@ namespace InterviewProject.Data
 
         } 
         public DbSet<Product> Products { get; set; }
+
     }
 
    
