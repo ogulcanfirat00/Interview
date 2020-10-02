@@ -102,5 +102,8 @@ namespace InterviewProject.Controllers
             ApplicationDbContext.SaveChanges();
             return RedirectToAction("Product");
         }
+
+
+        
     }
 }

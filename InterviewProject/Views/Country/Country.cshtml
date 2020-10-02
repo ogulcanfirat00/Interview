@@ -1,0 +1,35 @@
+﻿@model InterviewProject.Models.Country
+@{
+    ViewData["Title"] = "Country";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Country List</h1>
+
+<label asp-for="Country_Name"></label>
+<select id="Country_Id" name="CountryList" asp-for="Country_Id" asp-items="@(new SelectList(ViewBag.countries, "Country_Id", "CountryName"))">
+    <option>Select Country Name</option>
+</select>
+
+<label asp-for="Country_Name"></label>
+<select id="City_ID" name="CityList" asp-for="Country_Id" asp-items="@(new SelectList(string.Empty, "Country_Id", "CountryName"))">
+    <option>Select City Name</option>
+</select>
+
+<script>
+    $(function () {
+        $("#Country_Id").change(function () {
+            var url = '@Url.Content("~/")' + "Country/GetCity";
+            var source = '#Country_Id';
+
+            $.getJSON(url, { id: $(source).val() }, function (data) {
+                var items = '';
+                $("#City_Id").empty();
+                $.each(data, function (i, row) {
+                    items += "<option value = '" + row.value + "'>" + row.text + "</options>";
+                })
+                $("#City_Id").html(items);
+            });
+        });
+    });
+</script>

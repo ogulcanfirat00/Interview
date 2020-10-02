@@ -17,7 +17,7 @@ namespace InterviewProject.Models
 
         [Required(ErrorMessage = "Start Date is required")]
         [Display(Name = "Product Start Date")]
-        [DisplayFormat(DataFormatString ="{0:dd-MM-yyyy}", ApplyFormatInEditMode =true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
 
         [Required(ErrorMessage = "Price is required")]
